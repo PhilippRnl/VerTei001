@@ -8,6 +8,7 @@ package JPA;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -17,6 +18,7 @@ public class Benutzer {
     public String benutzername ="";
    
     @Column(nullable=false, length=50)
+    @NotNull(message = "Das Passwort darf nicht leer sein.")
     public String passwortHash ="";
     
     @Column(nullable=false, length=50)
