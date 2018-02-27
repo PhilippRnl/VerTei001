@@ -7,6 +7,8 @@ package JPA;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,8 +40,13 @@ public class Anzeige implements Serializable{
     @Column(nullable=false, length=50)
     public String Postleizahl ="";
     
+    @Column
+    @NotNull(message = "Das Datum darf nicht leer sein.")
+    private Date erstelldatum;
     
-    
+    @Column
+    @NotNull(message = "Das Datum darf nicht leer sein.")
+    private Date onlineBis;
     
     @Enumerated(EnumType.STRING)
     @NotNull
