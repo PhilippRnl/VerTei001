@@ -9,7 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 
 /**
- *
+ kbugihojlkhuij
  * @author philicxhfggh
  */
 public class BenutzerBean {
