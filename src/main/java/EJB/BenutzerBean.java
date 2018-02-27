@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author phili
+ * @author philicxhfggh
  */
 public class BenutzerBean {
     @Id
