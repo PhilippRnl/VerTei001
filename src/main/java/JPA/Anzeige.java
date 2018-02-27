@@ -9,6 +9,8 @@ import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -39,6 +41,8 @@ public class Anzeige implements Serializable{
     
     
     
-    
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private PreisArt preisArt = PreisArt.VB;
     
 }
