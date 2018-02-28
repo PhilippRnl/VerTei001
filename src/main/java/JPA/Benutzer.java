@@ -60,7 +60,7 @@ public class Benutzer {
     @Column(nullable=false, length=50)
     public long telefonnummer=0;
     
-    private String hashPasswort (String passwort){
+    public static String hashPasswort (String passwort){
         byte [] hash;
         if (passwort == null){
             passwort = "";
@@ -76,7 +76,12 @@ public class Benutzer {
         BigInteger bigInt = new BigInteger(1, hash);
         return bigInt.toString(16);
     }
-
+    
+    
+    
+    
+    
+    
     public String getBenutzername() {
         return benutzername;
     }

@@ -32,8 +32,15 @@ public class BenutzerBean {
      * @param telefonnummer
      * @return Der angelegte Benutzer
      */
-    public Benutzer createNewBenutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer) {
+    public Benutzer createNewBenutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer) throws UserAlreadyExistsException {
+       
+        if(em.find(Benutzer.class, benutzername)!= null){
+            throw new UserAlreadyExistsException("Der Benutzername ist bereits vergeben");
+        }
+        
+        
         Benutzer benutzer = new Benutzer( benutzername,  passwortHash,  vorname, nachname, strasse, postleitzahl, ort, land, mail, telefonnummer);
+        benutzer.addToGroup("todo-app-user");
         em.persist(benutzer);
         return em.merge(benutzer);
     }
