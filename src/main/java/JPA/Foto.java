@@ -5,71 +5,72 @@
  */
 package JPA;
 
-import JPA.Anzeige;
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
-public class Kategorie implements Serializable{
+public class Foto implements Serializable {
+
     @Id
-    private int slug = 0;
-    private String name = "";
-    
-    @ManyToMany(mappedBy="kategorien")
-    List<Anzeige> anzeigen = new ArrayList<>();
-    
-    @OneToMany
-    List<Kategorie> kategorien = new ArrayList<>();
-    
-    
+    @GeneratedValue
+    private long id = 0;
+
+    @Lob
+    private String bezeichnung = "";
+    private String bildDaten = "";
+
+    @ManyToOne
+    Anzeige anzeige = null;
+
     //<editor-fold defaultstate="collapsed" desc="Konstrukturen">
-    public Kategorie() {
+    public Foto() {
     }
-    public Kategorie(int slug, String name) {
-        this.slug = slug;
-        this.name = name;
+
+    public Foto(String bezeichnung, String bildDaten) {
+        this.bezeichnung = bezeichnung;
+        this.bildDaten = bildDaten;
     }
     //</editor-fold>
+    
     
     //<editor-fold defaultstate="collapsed" desc="Setter und Getter">
-    public void setSlug(int slug) {
-        this.slug = slug;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBezeichnung(String bezeichnung) {
+        this.bezeichnung = bezeichnung;
     }
 
-    public void setAnzeigen(List<Anzeige> anzeigen) {
-        this.anzeigen = anzeigen;
+    public void setBildDaten(String bildDaten) {
+        this.bildDaten = bildDaten;
     }
 
-    public void setKategorien(List<Kategorie> kategorien) {
-        this.kategorien = kategorien;
+    public void setAnzeige(Anzeige anzeige) {
+        this.anzeige = anzeige;
     }
 
-    public int getSlug() {
-        return slug;
+    public long getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public String getBezeichnung() {
+        return bezeichnung;
     }
 
-    public List<Anzeige> getAnzeigen() {
-        return anzeigen;
+    public String getBildDaten() {
+        return bildDaten;
     }
 
-    public List<Kategorie> getKategorien() {
-        return kategorien;
+    public Anzeige getAnzeige() {
+        return anzeige;
     }
-    
     //</editor-fold>
     
+    
     //<editor-fold defaultstate="collapsed" desc="Von Objekt geerbter Kram">
-     @Override
+    @Override
     protected void finalize() throws Throwable {
         super.finalize(); //To change body of generated methods, choose Tools | Templates.
     }
@@ -93,8 +94,10 @@ public class Kategorie implements Serializable{
     public int hashCode() {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
+    
     //</editor-fold>
 
+    
     
     
 }

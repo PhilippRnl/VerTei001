@@ -6,84 +6,107 @@
 package JPA;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 
 /**
  *
- * @author phili
+ * @author Fabio Kraemer
  */
-
 @Entity
 public class Nachricht implements Serializable {
-    
+
     @Id
     @GeneratedValue
-    public long id=0;
-    
-    @Column(nullable=false, length=50)
-    public String vonBenutzer="";
-    
-    @Column(nullable=false, length=50)
-    public String anBenutzer="";
-    
-    @Column(nullable=false, length=50)
-    public long zuArtikel;
-    
+    private long id = 0;
+
+    private Benutzer vonBenutzer = new Benutzer();
+    private Benutzer anBenutzer = new Benutzer();
+
     @Lob
-    public String Text ="";
+    private String text = "";
+
+    @ManyToOne
+    Benutzer benutzer = null;
+
+    //<editor-fold defaultstate="collapsed" desc="Konstrukturen">
+    public Nachricht() {
+    }
+
+    public Nachricht(Benutzer vonBenutzer, Benutzer anBenutzer, String text) {
+        this.vonBenutzer = vonBenutzer;
+        this.anBenutzer = anBenutzer;
+        this.text = text;
+    }
+
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Setter und Getter">
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setVonBenutzer(Benutzer vonBenutzer) {
+        this.vonBenutzer = vonBenutzer;
+    }
+
+    public void setAnBenutzer(Benutzer anBenutzer) {
+        this.anBenutzer = anBenutzer;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getVonBenutzer() {
+    public Benutzer getVonBenutzer() {
         return vonBenutzer;
     }
 
-    public void setVonBenutzer(String vonBenutzer) {
-        this.vonBenutzer = vonBenutzer;
-    }
-
-    public String getAnBenutzer() {
+    public Benutzer getAnBenutzer() {
         return anBenutzer;
     }
 
-    public void setAnBenutzer(String anBenutzer) {
-        this.anBenutzer = anBenutzer;
-    }
-
-    public long getZuArtikel() {
-        return zuArtikel;
-    }
-
-    public void setZuArtikel(long zuArtikel) {
-        this.zuArtikel = zuArtikel;
-    }
-
     public String getText() {
-        return Text;
+        return text;
     }
 
-    public void setText(String Text) {
-        this.Text = Text;
+    public Benutzer getBenutzer() {
+        return benutzer;
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Von Objekt geerbter Kram">
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Nachricht() {
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public Nachricht(long id, String vonBenutzer, String anBenutzer, String zuArtikel, String text) {
-        
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+    //</editor-fold>
+
 }

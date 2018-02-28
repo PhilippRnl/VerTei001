@@ -163,11 +163,40 @@ public class Anzeige implements Serializable{
         this.beschreibung = beschreibung;
         this.preisvorstellung = preisvorstellung;
         this.postleitzahl = postleitzahl;
-        tihs.ort = ort;
+        this.ort = ort;
         this.erstelldatum = erstelldatum;
         this.onlineBis = onlineBis;
         this.preisArt = preisArt;
         this.artDerAnzeige = artDerAnzeige;
        
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Von Objekt geerbter Kram">
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+    //</editor-fold>
+
+    
 }

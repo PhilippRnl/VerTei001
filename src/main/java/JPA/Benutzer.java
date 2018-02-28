@@ -137,6 +137,48 @@ public class Benutzer {
     public Benutzer() {
     }
     
+    public Benutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer) {
+        this.benutzername = benutzername;
+        this.passwortHash = passwortHash;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.strasse = strasse;
+        this.plz = postleitzahl;
+        this.ort = ort;
+        this.land = land; 
+        this.mail = mail;
+        this.telefonnummer = telefonnummer;
+    }
     
     
+    //<editor-fold defaultstate="collapsed" desc="Von Objekt geerbter Kram">
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //</editor-fold>
+
 }
+
+
