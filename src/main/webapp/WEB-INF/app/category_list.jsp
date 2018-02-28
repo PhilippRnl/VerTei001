@@ -35,7 +35,7 @@
 
             <%-- Feld zum Anlegen einer neuen Kategorie --%>
             <div class="column margin">
-                <label for="j_username">Neue Kategorie:</label>
+                <label for="benutzername">Neue Kategorie:</label>
                 <input type="text" name="name" value="${categories_form.values["name"][0]}">
 
                 <button type="submit" name="action" value="create" class="icon-pencil">

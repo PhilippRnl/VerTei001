@@ -33,17 +33,17 @@
             <form action="j_security_check" method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
-                    <label for="j_username">
+                    <label for="benutzername">
                         Benutzername:
                         <span class="required">*</span>
                     </label>
-                    <input type="text" name="j_username">
+                    <input type="text" name="benutzername">
 
-                    <label for="j_password">
+                    <label for="passwort">
                         Passwort:
                         <span class="required">*</span>
                     </label>
-                    <input type="password" name="j_password">
+                    <input type="password" name="passwort">
 
                     <%-- Button zum Abschicken --%>
                     <button class="icon-login" type="submit">
