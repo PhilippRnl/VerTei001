@@ -133,6 +133,9 @@ public class Benutzer {
     public void setTelefonnummer(long telefonnummer) {
         this.telefonnummer = telefonnummer;
     }
+
+    public Benutzer() {
+    }
     
     
     

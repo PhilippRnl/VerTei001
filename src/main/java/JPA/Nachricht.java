@@ -33,7 +33,7 @@ public class Nachricht implements Serializable {
     public String anBenutzer="";
     
     @Column(nullable=false, length=50)
-    public long zuArtikel
+    public long zuArtikel;
     
     @Lob
     public String Text ="";
