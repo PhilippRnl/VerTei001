@@ -10,6 +10,10 @@
 package WEB;
 
 
+import EJB.AnzeigeBean;
+import EJB.KategorieBean;
+import JPA.Anzeige;
+import JPA.Kategorie;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,50 +28,51 @@ import javax.servlet.http.HttpServletResponse;
  * zeigt.
  */
 @WebServlet(urlPatterns = {"/app/tasks/"})
-public class TaskListServlet extends HttpServlet {
+public class AnzeigeListeServlet extends HttpServlet {
 
     @EJB
-    private CategoryBean categoryBean;
+    private KategorieBean kategorieBean;
     
     @EJB
-    private TaskBean taskBean;
+    private AnzeigeBean anzeigeBean;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
-        request.setAttribute("categories", this.categoryBean.findAllSorted());
-        request.setAttribute("statuses", TaskStatus.values());
+        request.setAttribute("kategorie", this.kategorieBean.findAllKategorie());
+   
 
         // Suchparameter aus der URL auslesen
         String searchText = request.getParameter("search_text");
-        String searchCategory = request.getParameter("search_category");
+        String searchKategorie = request.getParameter("search_kategorie");
         String searchStatus = request.getParameter("search_status");
+        String searchSlug = request.getParameter("search_slug");
 
         // Anzuzeigende Aufgaben suchen
-        Category category = null;
-        TaskStatus status = null;
+        Kategorie kategorie = null;
+      
 
-        if (searchCategory != null) {
+        if (searchKategorie != null) {
             try {
-                category = this.categoryBean.findById(Long.parseLong(searchCategory));
+                kategorie = this.kategorieBean.findKategorie(searchSlug);
             } catch (NumberFormatException ex) {
-                category = null;
+                kategorie = null;
             }
         }
 
-        if (searchStatus != null) {
-            try {
-                status = TaskStatus.valueOf(searchStatus);
-            } catch (IllegalArgumentException ex) {
-                status = null;
-            }
+   //     if (searchStatus != null) {
+   //         try {
+   //             status = TaskStatus.valueOf(searchStatus);
+   //         } catch (IllegalArgumentException ex) {
+   //             status = null;
+   //         }
 
-        }
+        
 
-        List<Task> tasks = this.taskBean.search(searchText, category, status);
-        request.setAttribute("tasks", tasks);
+        List<Anzeige> anzeige = this.anzeigeBean.search(searchText, new Kategorie (searchSlug, searchKategorie));
+        request.setAttribute("Anzeige", anzeige);
 
         // Anfrage an die JSP weiterleiten
         request.getRequestDispatcher("/WEB-INF/app/task_list.jsp").forward(request, response);

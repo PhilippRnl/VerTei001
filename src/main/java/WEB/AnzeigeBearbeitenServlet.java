@@ -15,6 +15,7 @@ import EJB.KategorieBean;
 import EJB.ValidationBean;
 import EJb.BenutzerBean;
 import JPA.Anzeige;
+import JPA.Benutzer;
 import JPA.PreisArt;
 import java.io.IOException;
 import java.util.Date;
@@ -117,7 +118,7 @@ public class AnzeigeBearbeitenServlet extends HttpServlet {
         // Formulareingaben prüfen
         List<String> errors = new ArrayList<>();
 
-     -  String anzeigeKategorie = request.getParameter("anzeige_kategorie");
+        String anzeigeKategorie = request.getParameter("anzeige_kategorie");
         String anzeigeTitel = request.getParameter("anzeige_titel");
         String anzeigeBenutzer = request.getParameter("anzeige_benutzer");
         String anzeigeBeschreibung = request.getParameter("anzeige_beschreibung");
@@ -128,8 +129,7 @@ public class AnzeigeBearbeitenServlet extends HttpServlet {
         String anzeigeOnlineBis = request.getParameter("anzeige_onlinebis");
         String anzeigePreisArt = request.getParameter("anzeige_preisart");
         String anzeigeArt = request.getParameter("anzeige_art");        
-                 
-
+       
         Anzeige anzeige = this.getRequestedTask(request);
         anzeige.setTitel(anzeigeTitel);
         anzeige.setKategorie(anzeigeKategorie);
@@ -138,7 +138,7 @@ public class AnzeigeBearbeitenServlet extends HttpServlet {
         anzeige.setPreisvorstellung(anzeigePreisvorstellung);
         anzeige.setPostleitzahl(anzeigePostleitzahl);
         anzeige.setArtDerAnzeige(anzeigeArt);
-        anzeige.setReleasedBenutzer(anzeigeBenutzer);
+        anzeige.setReleasedBenutzer(benutzerBean.findBenutzer(anzeigeBenutzer));
         
         try {
             anzeige.setPreisArt(PreisArt.valueOf(anzeigePreisArt));
@@ -260,13 +260,53 @@ public class AnzeigeBearbeitenServlet extends HttpServlet {
             anzeige.getReleasedBenutzer().getBenutzername()
         });
 
+         values.put("anzeige_titel", new String[]{
+            anzeige.getTitel()
+        });
+         
+         values.put("anzeige_beschreibung", new String[]{
+            anzeige.getBeschreibung()
+        });
+         
+          values.put("anzeige_ort", new String[]{
+            anzeige.getOrt()
+        });
+          
+           values.put("anzeige_erstelldatum", new String[]{
+            anzeige.getErstelldatum().toString()
+        });
+           
+            values.put("anzeige_onlinebis", new String[]{
+            anzeige.getOnlineBis().toString()
+        });
+             values.put("anzeige_preisart", new String[]{
+            anzeige.getPreisArt().toString()
+        });
+            values.put("anzeige_art", new String[]{
+            anzeige.getArtDerAnzeige()
+        });
+          
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
         if (anzeige.getKategorie() != null) {
             values.put("anzeige_kategorie", new String[]{
                 anzeige.getKategorie().toString()
             });
         }
 
-        values.put("anzeige_titel", new String[])
+        
         FormValues formValues = new FormValues();
         formValues.setValues(values);
         return formValues;

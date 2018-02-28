@@ -6,18 +6,28 @@
 package EJB;
 
 import JPA.Anzeige;
+import JPA.Kategorie;
 import JPA.PreisArt;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 @Stateless
-public class AnzeigeBean extends EntityBean <Anzeige, Long> {
+@RolesAllowed("todo-app-user")
+public class AnzeigeBean extends EntityBean<Anzeige, Long> {
 
     @PersistenceContext
     EntityManager em;
+
+    public AnzeigeBean() {
+        super(Anzeige.class);
+    }
 
     public AnzeigeBean(Class<Anzeige> entityClass) {
         super(entityClass);
@@ -57,6 +67,38 @@ public class AnzeigeBean extends EntityBean <Anzeige, Long> {
         return em.find(Anzeige.class, id);
     }
 
+     /**
+     * Suche nach Aufgaben anhand ihrer Bezeichnung, Kategorie und Status.
+     * 
+     * Anders als in der Vorlesung behandelt, wird die SELECT-Anfrage hier
+     * mit der CriteriaBuilder-API vollkommen dynamisch erzeugt.
+     * 
+     * @param search In der Kurzbeschreibung enthaltener Text (optional)
+     * @param category Kategorie (optional)
+     * @param status Status (optional)
+     * @return Liste mit den gefundenen Aufgaben
+     */
+    public List<Anzeige> search(String search, Kategorie category) {
+        // Hilfsobjekt zum Bauen des Query
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        
+        // SELECT t FROM Task t
+        CriteriaQuery<Anzeige> query = cb.createQuery(Anzeige.class);
+        Root<Anzeige> from = query.from(Anzeige.class);
+        query.select(from);
+
+        
+        // WHERE t.category = :category
+        if (category != null) {
+            query.where(cb.equal(from.get("kategorie"), category));
+        }
+        
+        
+        return em.createQuery(query).getResultList();
+    }
+    
+    
+    
     /**
      * Löschen einer Anzeige.
      *
