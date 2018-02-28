@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -60,6 +61,12 @@ public class Benutzer {
     @Column(nullable=false, length=50)
     public long telefonnummer=0;
     
+      @Column(name = "GROUPNAME")
+    java.util.List<String> groups = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    java.util.List<Anzeige> anzeige = new ArrayList<>();
+    
     public static String hashPasswort (String passwort){
         byte [] hash;
         if (passwort == null){
@@ -77,6 +84,25 @@ public class Benutzer {
         return bigInt.toString(16);
     }
     
+     /**
+     * Fügt den Benutzer einer weiteren Benutzergruppe hinzu.
+     *
+     * @param groupname Name der Benutzergruppe
+     */
+    public void addToGroup(String groupname) {
+        if (!this.groups.contains(groupname)) {
+            this.groups.add(groupname);
+        }
+    }
+    
+    /**
+     * Entfernt den Benutzer aus der übergebenen Benutzergruppe.
+     *
+     * @param groupname Name der Benutzergruppe
+     */
+    public void removeFromGroup(String groupname) {
+        this.groups.remove(groupname);
+    }
     
     
     

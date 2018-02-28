@@ -45,6 +45,8 @@ public class Anzeige implements Serializable{
     @Column(nullable=false, length=50)
     public long postleitzahl;
     
+    
+    
     @Column
     @NotNull(message = "Das Datum darf nicht leer sein.")
     private Date erstelldatum;
@@ -147,12 +149,37 @@ public class Anzeige implements Serializable{
 
     @ManyToMany
     List<Benutzer> noticedBenutzer = new ArrayList<>();
-
+    
+ 
     @OneToMany(mappedBy = "anzeige")
     List<Foto> fotos = new ArrayList<>();
 
+    public Benutzer getReleasedBenutzer() {
+        return releasedBenutzer;
+    }
+
+    public void setReleasedBenutzer(Benutzer releasedBenutzer) {
+        this.releasedBenutzer = releasedBenutzer;
+    }
+
+    public List<Benutzer> getNoticedBenutzer() {
+        return noticedBenutzer;
+    }
+
+    public void setNoticedBenutzer(List<Benutzer> noticedBenutzer) {
+        this.noticedBenutzer = noticedBenutzer;
+    }
+
     @ManyToMany
-    List<Kategorie> kategorien = new ArrayList<>();
+    String kategorie = "";
+
+    public String getKategorie() {
+        return kategorie;
+    }
+
+    public void setKategorie(String kategorie) {
+        this.kategorie = kategorie;
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Konstrukturen">
     public Anzeige() {

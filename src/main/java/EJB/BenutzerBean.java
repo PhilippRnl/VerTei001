@@ -7,6 +7,9 @@ package EJb;
 
 import JPA.Benutzer;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +20,9 @@ public class BenutzerBean {
 
     @PersistenceContext
     EntityManager em;
+    
+    @Resource
+    EJBContext ctx;
 
     /**
      * Anlegen eines neuen Benutzers.
@@ -85,4 +91,54 @@ public class BenutzerBean {
     public Benutzer updateBenutzer(Benutzer benutzer) {
         return em.merge(benutzer);
     }
+
+    /**
+     * Gibt das Datenbankobjekt des aktuell eingeloggten Benutzers zurück,
+     *
+     * @return Eingeloggter Benutzer oder null
+     */
+    public Benutzer getAktuellerBenutzer() {
+        return this.em.find(Benutzer.class, this.ctx.getCallerPrincipal().getName());
+    }
+        /**
+     *
+     * @param username
+     * @param oldPassword
+     * @param newPassword
+     * @throws UserBean.InvalidCredentialsException
+     */
+  //  @RolesAllowed("todo-app-user")
+    //public void changePassword(String username, String oldPassword, String newPassword) throws InvalidCredentialsException {
+      //  User user = em.find(User.class, username);
+
+        //if (user == null || !user.checkPassword(oldPassword)) {
+          //  throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
+        //}
+
+       // user.setPassword(newPassword);
+        //em.merge(user);
+
+    /**
+     * Fehler: Der Benutzername ist bereits vergeben
+     */
+    public class UserAlreadyExistsException extends Exception {
+
+        public UserAlreadyExistsException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * Fehler: Das übergebene Passwort stimmt nicht mit dem des Benutzers
+     * überein
+     */
+    public class InvalidCredentialsException extends Exception {
+
+        public InvalidCredentialsException(String message) {
+            super(message);
+        }
+    }
+  
+
+
 }

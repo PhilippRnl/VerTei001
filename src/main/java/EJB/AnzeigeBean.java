@@ -14,10 +14,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class AnzeigeBean {
+public class AnzeigeBean extends EntityBean <Anzeige, Long> {
 
     @PersistenceContext
     EntityManager em;
+
+    public AnzeigeBean(Class<Anzeige> entityClass) {
+        super(entityClass);
+    }
     
     /**
      * Anlegen einer neuen Anzeige.
@@ -77,5 +81,11 @@ public class AnzeigeBean {
      */
     public Anzeige updateAnzeige(Anzeige anzeige) {
         return em.merge(anzeige);
+    }
+    
+     public List<Anzeige> findByBenutzername(String benutzername) {
+        return em.createQuery("SELECT t FROM Task t WHERE t.owner.username = :username ORDER BY t.dueDate, t.dueTime")
+                 .setParameter("benutzername", benutzername)
+                 .getResultList();
     }
 }

@@ -55,9 +55,9 @@ public class ValidationBean {
     public <T> List<String> validate(T object, List<String> messages) {
         Set<ConstraintViolation<T>> violations = this.validator.validate(object);
         
-        violations.forEach((ConstraintViolation<T> violation) -> {
-            messages.add(violation.getMessage());
-        });
+      //  violations.forEach((ConstraintViolation<T> violation) -> {
+        //    messages.add(violation.getMessage());
+//        });
         
         return messages;
     }
