@@ -8,10 +8,6 @@ package JPA;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**
- *
- * @author Fabio Kraemer
- */
 @Entity
 public class Nachricht implements Serializable {
 

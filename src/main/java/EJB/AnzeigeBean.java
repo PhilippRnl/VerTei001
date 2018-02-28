@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package EJB;
 
 import JPA.Anzeige;
+import JPA.PreisArt;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,19 +21,17 @@ public class AnzeigeBean {
     
     /**
      * Anlegen einer neuen Anzeige.
-     * @param art
      * @param titel
      * @param beschreibung
-     * @param erstellungsDatum
-     * @param onlineBis
-     * @param preisVorstellung
-     * @param artDesPreises
-     * @param plz
+     * @param preisvorstellung
+     * @param postleitzahl
+     * @param erstelldatum
      * @param ort
+     * @param onlineBis
      * @return 
      */
-    public Anzeige createNewAnzeige(String art, String titel, String beschreibung, Date erstellungsDatum, Date onlineBis, double preisVorstellung, String artDesPreises, int plz, String ort) {
-        Anzeige anzeige = new Anzeige(art, titel, beschreibung, erstellungsDatum, onlineBis, preisVorstellung, artDesPreises, plz, ort);
+    public Anzeige createNewAnzeige(String titel, String beschreibung, String ort, long preisvorstellung, long postleitzahl, Date erstelldatum, Date onlineBis, PreisArt preisArt, String artDerAnzeige) {
+        Anzeige anzeige = new Anzeige(titel,  beschreibung,  ort, preisvorstellung, postleitzahl, erstelldatum,  onlineBis, preisArt, artDerAnzeige);
         em.persist(anzeige);
         return em.merge(anzeige);
     }

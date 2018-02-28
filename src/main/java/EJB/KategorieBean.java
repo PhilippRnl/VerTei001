@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Aufgabe.ejb;
+package EJB;
 
-import Aufgabe.jpa.Kategorie;
+import JPA.Kategorie;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Fabio Kraemer
- */
 @Stateless
 public class KategorieBean {
     @PersistenceContext

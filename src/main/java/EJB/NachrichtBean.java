@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Aufgabe.ejb;
+package EJB;
 
-import Aufgabe.jpa.Benutzer;
-import Aufgabe.jpa.Nachricht;
+import JPA.Benutzer;
+import JPA.Nachricht;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Fabio Kraemer
- */
 @Stateless
 public class NachrichtBean {
     @PersistenceContext

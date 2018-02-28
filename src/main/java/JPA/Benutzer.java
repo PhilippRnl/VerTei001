@@ -26,7 +26,6 @@ public class Benutzer {
     public String benutzername ="";
    
     @Column(nullable=false, length=50)
-    
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     public String passwortHash ="";
     

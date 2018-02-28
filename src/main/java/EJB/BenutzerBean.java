@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Aufgabe.ejb;
+package EJb;
 
-import Aufgabe.jpa.Benutzer;
+import JPA.Benutzer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Fabio Kraemer
- */
+
 @Stateless
 public class BenutzerBean {
 
@@ -24,20 +21,19 @@ public class BenutzerBean {
     /**
      * Anlegen eines neuen Benutzers.
      * @param benutzername
-     * @param passwort
+     * @param passwortHash
      * @param vorname
      * @param nachname
-     * @param ort
-     * @param hausnummer
-     * @param plz
      * @param strasse
+     * @param plz
+     * @param ort
      * @param land
-     * @param email
+     * @param mail
      * @param telefonnummer
      * @return Der angelegte Benutzer
      */
-    public Benutzer createNewBenutzer(String benutzername, String passwort, String vorname, String nachname, String strasse, int hausnummer, int plz, String ort, String land, String email, String telefonnummer) {
-        Benutzer benutzer = new Benutzer(benutzername, passwort, vorname, nachname, strasse, hausnummer, plz, ort, land, email, telefonnummer);
+    public Benutzer createNewBenutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer) {
+        Benutzer benutzer = new Benutzer( benutzername,  passwortHash,  vorname, nachname, strasse, postleitzahl, ort, land, mail, telefonnummer);
         em.persist(benutzer);
         return em.merge(benutzer);
     }
