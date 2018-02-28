@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 public class Kategorie implements Serializable{
     @Id
-    private int slug = 0;
+    private String slug = "";
     private String name = "";
     
     @ManyToMany(mappedBy="kategorien")
@@ -27,14 +27,14 @@ public class Kategorie implements Serializable{
     //<editor-fold defaultstate="collapsed" desc="Konstrukturen">
     public Kategorie() {
     }
-    public Kategorie(int slug, String name) {
+    public Kategorie(String slug, String name) {
         this.slug = slug;
         this.name = name;
     }
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Setter und Getter">
-    public void setSlug(int slug) {
+    public void setSlug(String slug) {
         this.slug = slug;
     }
 
@@ -50,7 +50,7 @@ public class Kategorie implements Serializable{
         this.kategorien = kategorien;
     }
 
-    public int getSlug() {
+    public String getSlug() {
         return slug;
     }
 
