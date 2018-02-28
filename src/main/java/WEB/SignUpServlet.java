@@ -10,6 +10,9 @@
 package WEB;
 
 
+import EJB.ValidationBean;
+import EJb.BenutzerBean;
+import JPA.Benutzer;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -32,7 +35,7 @@ public class SignUpServlet extends HttpServlet {
     ValidationBean validationBean;
             
     @EJB
-    UserBean userBean;
+    BenutzerBean benutzerBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,23 +57,30 @@ public class SignUpServlet extends HttpServlet {
         // Formulareingaben auslesen
         request.setCharacterEncoding("utf-8");
         
-        String username = request.getParameter("signup_username");
-        String password1 = request.getParameter("signup_password1");
-        String password2 = request.getParameter("signup_password2");
-        
+        String benutzername = request.getParameter("signup_benutzername");
+        String passwort = request.getParameter("signup_passwort");
+        String passwort2 = request.getParameter("signup_passwort2");
+        String vorname = request.getParameter("signup_vorname");
+        String nachname = request.getParameter("signup_nachname");
+        String strasse = request.getParameter("signup_strasse");
+        long postleitzahl = Long.parseLong(request.getParameter("signup_postleitzahl"));
+        String ort = request.getParameter("signup_ort");
+        String land = request.getParameter("signup_land");
+        String mail = request.getParameter("signup_mail");
+        long telefonnummer = Long.parseLong(request.getParameter("signup_telefonnumer"));
         // Eingaben prüfen
-        User user = new User(username, password1);
-        List<String> errors = this.validationBean.validate(user);
+        Benutzer benutzer = new Benutzer(benutzername,  hashPasswort(passwort),  vorname,  nachname,  strasse,  postleitzahl,  ort,  land,  mail,  telefonnummer);
+        List<String> errors = this.validationBean.validate(benutzer);
         
-        if (password1 != null && password2 != null && !password1.equals(password2)) {
+        if (passwort != null && passwort2 != null && !passwort.equals(passwort2)) {
             errors.add("Die beiden Passwörter stimmen nicht überein.");
         }
         
         // Neuen Benutzer anlegen
         if (errors.isEmpty()) {
             try {
-                this.userBean.signup(username, password1);
-            } catch (UserBean.UserAlreadyExistsException ex) {
+                this.benutzerBean.createNewBenutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer);
+            } catch (BenutzerBean.UserAlreadyExistsException ex) {
                 errors.add(ex.getMessage());
             }
         }

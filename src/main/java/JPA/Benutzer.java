@@ -5,6 +5,10 @@
  */
 package JPA;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +31,9 @@ public class Benutzer {
    
     @Column(nullable=false, length=50)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
+    public String passwort ="";
+    
+    @Column(nullable=false, length=50)
     public String passwortHash ="";
     
     @Column(nullable=false, length=50)
@@ -52,6 +59,23 @@ public class Benutzer {
     
     @Column(nullable=false, length=50)
     public long telefonnummer=0;
+    
+    private String hashPasswort (String passwort){
+        byte [] hash;
+        if (passwort == null){
+            passwort = "";
+        }
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            hash = digest.digest(passwort.getBytes(StandardCharsets.UTF_8));
+        }
+       catch (NoSuchAlgorithmException ex) {
+            hash = "!".getBytes(StandardCharsets.UTF_8);
+        }
+
+        BigInteger bigInt = new BigInteger(1, hash);
+        return bigInt.toString(16);
+    }
 
     public String getBenutzername() {
         return benutzername;
@@ -147,6 +171,12 @@ public class Benutzer {
         this.land = land; 
         this.mail = mail;
         this.telefonnummer = telefonnummer;
+    }
+    
+    public Benutzer(String benutzername, String passwort){
+        this.benutzername = benutzername;
+        this.passwort = passwort;
+        this.passwortHash = this.hashPasswort(passwort);
     }
     
     
