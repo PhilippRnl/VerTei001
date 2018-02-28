@@ -5,19 +5,28 @@
  */
 package JPA;
 
+import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.AssertFalse.List;
 import javax.validation.constraints.NotNull;
 
 
 @Entity
 public class Benutzer {
+    
+     
+    
     @Id
     @Column(length=30, nullable=false)
     public String benutzername ="";
    
     @Column(nullable=false, length=50)
+    
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     public String passwortHash ="";
     
