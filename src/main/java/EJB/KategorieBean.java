@@ -22,7 +22,7 @@ public class KategorieBean {
      * @param name
      * @return Der angelegten Kategorie
      */
-    public Kategorie createNewKategorie(int slug, String name) {
+    public Kategorie createNewKategorie(String slug, String name) {
         Kategorie kategorie = new Kategorie(slug, name);
         em.persist(kategorie);
         return em.merge(kategorie);
@@ -40,7 +40,7 @@ public class KategorieBean {
      * @param slug ID der Kategorie
      * @return Gefundenes Objekt oder null
      */
-    public Kategorie findKategorie(int slug) {
+    public Kategorie findKategorie(String slug) {
         return em.find(Kategorie.class, slug);
     }
     
@@ -49,8 +49,8 @@ public class KategorieBean {
      * @param slug ID der zu löschenden Kategorie
      * @return Die gelöschte Kategorie oder null
      */
-    public Kategorie deleteKategorie(int slug) {
-        Kategorie kategorie = em.find(Kategorie.class, slug);
+    public Kategorie deleteKategorie(Kategorie kategorie) {
+        kategorie = em.find(Kategorie.class, kategorie.getSlug());
         
         if (kategorie != null) {
             em.remove(kategorie);

@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  * Formular, mit dem ein neue Kategorie angelegt werden kann, sowie eine Liste,
  * die zum Löschen der Kategorien verwendet werden kann.
  */
-@WebServlet(urlPatterns = {"/app/categories/"})
+@WebServlet(urlPatterns = {"/app/kategorien/"})
 public class KategorieListServlet extends HttpServlet {
 
     @EJB
@@ -47,7 +47,7 @@ public class KategorieListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Alle vorhandenen Kategorien ermitteln
-        request.setAttribute("categories", this.KategorieBean.findAllKategorie());
+        request.setAttribute("kategorien", this.KategorieBean.findAllKategorie());
 
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/app/category_list.jsp");
@@ -55,7 +55,7 @@ public class KategorieListServlet extends HttpServlet {
 
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
-        session.removeAttribute("categories_form");
+        session.removeAttribute("kategorien_form");
     }
 
     @Override
@@ -76,7 +76,7 @@ public class KategorieListServlet extends HttpServlet {
                 this.createCategory(request, response);
                 break;
             case "delete":
-                this.deleteCategories(request, response);
+                this.deleteKategorien(request, response);
                 break;
         }
     }
@@ -94,6 +94,8 @@ public class KategorieListServlet extends HttpServlet {
 
         // Formulareingaben prüfen
         String name = request.getParameter("name");
+        
+        String slug = request.getParameter("slug");
 
         Kategorie kategorie = new Kategorie(slug, name);
         List<String> errors = this.validationBean.validate(kategorie);
@@ -110,7 +112,7 @@ public class KategorieListServlet extends HttpServlet {
             formValues.setErrors(errors);
 
             HttpSession session = request.getSession();
-            session.setAttribute("categories_form", formValues);
+            session.setAttribute("kategorien_form", formValues);
         }
 
         response.sendRedirect(request.getRequestURI());
@@ -124,39 +126,34 @@ public class KategorieListServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    private void deleteCategories(HttpServletRequest request, HttpServletResponse response)
+    private void deleteKategorien(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Markierte Kategorie IDs auslesen
-        String[] categoryIds = request.getParameterValues("category");
+        String[] kategorieIds = request.getParameterValues("kategorien");
 
-        if (categoryIds == null) {
-            categoryIds = new String[0];
+        if (kategorieIds == null) {
+            kategorieIds = new String[0];
         }
 
         // Kategorien löschen
-        for (String categoryId : categoryIds) {
+        for (String kategorieId : kategorieIds) {
             // Zu löschende Kategorie ermitteln
-            Category category;
+            Kategorie kategorie;
 
             try {
-                category = this.categoryBean.findById(Long.parseLong(categoryId));
+                kategorie = this.KategorieBean.findKategorie(kategorieId);
             } catch (NumberFormatException ex) {
                 continue;
             }
             
-            if (category == null) {
+            if (kategorie == null) {
                 continue;
             }
             
-            // Bei allen betroffenen Aufgaben, den Bezug zur Kategorie aufheben
-            category.getTasks().forEach((Task task) -> {
-                task.setCategory(null);
-                this.taskBean.update(task);
-            });
             
             // Und weg damit
-            this.categoryBean.delete(category);
+            this.KategorieBean.deleteKategorie(kategorie);
         }
         
         // Browser auffordern, die Seite neuzuladen
