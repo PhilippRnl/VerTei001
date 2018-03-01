@@ -87,9 +87,9 @@ public class Benutzer implements Serializable{
         return bigInt.toString(16);
     }
 
-    public Benutzer(String benutzername, String hashPasswort, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, String telefonnummer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    //public Benutzer(String benutzername, String hashPasswort, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, String telefonnummer) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //}
     
      /**
      * Fügt den Benutzer einer weiteren Benutzergruppe hinzu.
