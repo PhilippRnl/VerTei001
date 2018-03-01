@@ -62,7 +62,7 @@ public class Benutzer implements Serializable{
     public String mail ="";
     
     @Column(nullable=false, length=50)
-    public long telefonnummer=0;
+    public String telefonnummer="";
     
       @Column(name = "GROUPNAME")
     java.util.List<String> groups = new ArrayList<>();
@@ -187,18 +187,18 @@ public class Benutzer implements Serializable{
         this.mail = mail;
     }
 
-    public long getTelefonnummer() {
+    public String getTelefonnummer() {
         return telefonnummer;
     }
 
-    public void setTelefonnummer(long telefonnummer) {
+    public void setTelefonnummer(String telefonnummer) {
         this.telefonnummer = telefonnummer;
     }
 
     public Benutzer() {
     }
     
-    public Benutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, long telefonnummer) {
+    public Benutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, String telefonnummer) {
         this.benutzername = benutzername;
         this.passwortHash = passwortHash;
         this.vorname = vorname;
