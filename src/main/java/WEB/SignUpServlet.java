@@ -11,7 +11,7 @@ package WEB;
 
 
 import EJB.ValidationBean;
-import EJb.BenutzerBean;
+import EJB.BenutzerBean;
 import JPA.Benutzer;
 import java.io.IOException;
 import java.util.List;

@@ -13,7 +13,7 @@ package WEB;
 import EJB.AnzeigeBean;
 import EJB.KategorieBean;
 import EJB.ValidationBean;
-import EJb.BenutzerBean;
+import EJB.BenutzerBean;
 import JPA.Anzeige;
 import JPA.Benutzer;
 import JPA.PreisArt;
