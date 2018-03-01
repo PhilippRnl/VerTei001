@@ -38,7 +38,7 @@ public class BenutzerBean {
      * @param telefonnummer
      * @return Der angelegte Benutzer
      */
-    public Benutzer createNewBenutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer) throws UserAlreadyExistsException {
+    public Benutzer createNewBenutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, String telefonnummer) throws UserAlreadyExistsException {
        
         if(em.find(Benutzer.class, benutzername)!= null){
             throw new UserAlreadyExistsException("Der Benutzername ist bereits vergeben");

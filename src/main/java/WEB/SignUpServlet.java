@@ -63,11 +63,11 @@ public class SignUpServlet extends HttpServlet {
         String vorname = request.getParameter("signup_vorname");
         String nachname = request.getParameter("signup_nachname");
         String strasse = request.getParameter("signup_strasse");
-        long postleitzahl = Long.parseLong(request.getParameter("signup_postleitzahl"));
+        String postleitzahl = request.getParameter("signup_postleitzahl");
         String ort = request.getParameter("signup_ort");
         String land = request.getParameter("signup_land");
         String mail = request.getParameter("signup_mail");
-        long telefonnummer = Long.parseLong(request.getParameter("signup_telefonnumer"));
+        String telefonnummer = request.getParameter("signup_telefonnumer");
         // Eingaben prüfen
         Benutzer benutzer = new Benutzer(benutzername,  Benutzer.hashPasswort(passwort),  vorname,  nachname,  strasse,  postleitzahl,  ort,  land,  mail,  telefonnummer);
         List<String> errors = this.validationBean.validate(benutzer);

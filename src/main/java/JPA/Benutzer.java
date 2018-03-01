@@ -5,6 +5,7 @@
  */
 package JPA;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -17,12 +18,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.AssertFalse.List;
 import javax.validation.constraints.NotNull;
 
 
 @Entity
-public class Benutzer {
+@Table(name = "JTODO_USER")
+public class Benutzer implements Serializable{
     
      
     
@@ -47,7 +50,7 @@ public class Benutzer {
     public String strasse ="";
     
     @Column(nullable=false, length=50)
-    public long plz =0;
+    public String plz ="";
     
     @Column(nullable=false, length=50)
     public String ort ="";
@@ -82,6 +85,10 @@ public class Benutzer {
 
         BigInteger bigInt = new BigInteger(1, hash);
         return bigInt.toString(16);
+    }
+
+    public Benutzer(String benutzername, String hashPasswort, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, String telefonnummer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
      /**
@@ -148,11 +155,11 @@ public class Benutzer {
         this.strasse = strasse;
     }
 
-    public long getPlz() {
+    public String getPlz() {
         return plz;
     }
 
-    public void setPlz(long plz) {
+    public void setPlz(String plz) {
         this.plz = plz;
     }
 
@@ -191,7 +198,7 @@ public class Benutzer {
     public Benutzer() {
     }
     
-    public Benutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, long postleitzahl, String ort, String land, String mail, long telefonnummer) {
+    public Benutzer(String benutzername, String passwortHash, String vorname, String nachname, String strasse, String postleitzahl, String ort, String land, String mail, long telefonnummer) {
         this.benutzername = benutzername;
         this.passwortHash = passwortHash;
         this.vorname = vorname;

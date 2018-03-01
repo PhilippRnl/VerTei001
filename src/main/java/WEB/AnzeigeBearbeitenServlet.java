@@ -124,7 +124,7 @@ public class AnzeigeBearbeitenServlet extends HttpServlet {
         String anzeigeBeschreibung = request.getParameter("anzeige_beschreibung");
         String anzeigeOrt = request.getParameter("anzeige_ort");
         long anzeigePreisvorstellung = Long.parseLong(request.getParameter("anzeige_preisvorstellung"));
-        long anzeigePostleitzahl = Long.parseLong(request.getParameter("anzeige_postleitzahl"));
+        String anzeigePostleitzahl =request.getParameter("anzeige_postleitzahl");
         String anzeigeErstelldatum = request.getParameter("anzeige_erstelldatum");
         String anzeigeOnlineBis = request.getParameter("anzeige_onlinebis");
         String anzeigePreisArt = request.getParameter("anzeige_preisart");

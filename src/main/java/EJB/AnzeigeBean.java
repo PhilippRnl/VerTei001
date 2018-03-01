@@ -44,7 +44,7 @@ public class AnzeigeBean extends EntityBean<Anzeige, Long> {
      * @param onlineBis
      * @return 
      */
-    public Anzeige createNewAnzeige(String titel, String beschreibung, String ort, long preisvorstellung, long postleitzahl, Date erstelldatum, Date onlineBis, PreisArt preisArt, String artDerAnzeige) {
+    public Anzeige createNewAnzeige(String titel, String beschreibung, String ort, long preisvorstellung, String postleitzahl, Date erstelldatum, Date onlineBis, PreisArt preisArt, String artDerAnzeige) {
         Anzeige anzeige = new Anzeige(titel,  beschreibung,  ort, preisvorstellung, postleitzahl, erstelldatum,  onlineBis, preisArt, artDerAnzeige);
         em.persist(anzeige);
         return em.merge(anzeige);

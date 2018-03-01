@@ -43,7 +43,7 @@ public class Anzeige implements Serializable{
     public long preisvorstellung =0;
     
     @Column(nullable=false, length=50)
-    public long postleitzahl;
+    public String postleitzahl;
     
     
     
@@ -104,11 +104,11 @@ public class Anzeige implements Serializable{
         this.preisvorstellung = preisvorstellung;
     }
 
-    public long getPostleitzahl() {
+    public String getPostleitzahl() {
         return postleitzahl;
     }
 
-    public void setPostleitzahl(long postleizahl) {
+    public void setPostleitzahl(String postleizahl) {
         this.postleitzahl = postleitzahl;
     }
 
@@ -185,7 +185,7 @@ public class Anzeige implements Serializable{
     public Anzeige() {
     }
 
-    public Anzeige(String titel, String beschreibung, String ort, long preisvorstellung, long postleitzahl, Date erstelldatum, Date onlineBis, PreisArt preisArt, String artDerAnzeige) {
+    public Anzeige(String titel, String beschreibung, String ort, long preisvorstellung, String postleitzahl, Date erstelldatum, Date onlineBis, PreisArt preisArt, String artDerAnzeige) {
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.preisvorstellung = preisvorstellung;
